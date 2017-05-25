@@ -30,7 +30,7 @@ END;
 
 CREATE TABLE sums(
 base_value varchar2(5) NOT NULL,
-result_value varchar2(1000) NOT NULL --Called it result_value instead of result due to fear of accidentaly using a reserved word
+result_value varchar2(4000) NOT NULL --Called it result_value instead of result due to fear of accidentaly using a reserved word
 )
 
 /*Create a trigger which should be executed before each insert the trigger should call the function findsum passing the value of the 
