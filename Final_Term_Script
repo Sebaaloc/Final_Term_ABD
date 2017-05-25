@@ -1,6 +1,7 @@
 --This function will retirn the sum of all multiples of 3 and 5. 
 --input string s. 1<=s<=99999
 --output a string representing the sum of all multiples of 3 and 5
+--Create an exception to validate if the string is not un the range 1<=s<=99999
 
 CREATE OR REPLACE FUNCTION findsum (num_in in string) 
 RETURN string AS
