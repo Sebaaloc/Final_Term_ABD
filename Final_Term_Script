@@ -1,1 +1,45 @@
+--This function will retirn the sum of all multiples of 3 and 5. 
+--input string s. 1<=s<=99999
+--output a string representing the sum of all multiples of 3 and 5
+
+CREATE OR REPLACE FUNCTION findsum (num_in in string) 
+RETURN string AS
+   counter_to_num number:=1; 
+   message string(4000):='(';
+   added_value number:=0;
+   not_in_range EXCEPTION;
+BEGIN
+if (num_in<=0) or (num_in>99999) then
+raise not_in_range;
+end if;
+WHILE counter_to_num<=num_in
+LOOP  
+   if MOD(counter_to_num,3)=0 or  MOD(counter_to_num,5)=0 then
+   added_value:=added_value+counter_to_num;
+   end if;
+   counter_to_num:=counter_to_num+1;   
+END LOOP;
+  message:=added_value;
+   return message;
+EXCEPTION
+   WHEN not_in_range THEN
+   Dbms_Output.Put_Line('Not a valid value, please insert number between 1 and 99999'); 
+END;
+
+--Create table sums with two fields "base:value varchar2(5)" and "result_value varchar2(4000)" 
+
+CREATE TABLE sums(
+base_value varchar2(5) NOT NULL,
+result_value varchar2(1000) NOT NULL --Called it result_value instead of result due to fear of accidentaly using a reserved word
+)
+
+/*Create a trigger which should be executed before each insert the trigger should call the function findsum passing the value of the 
+column "base_value" , the value returned must be inserted in the result column*/
+
+CREATE OR REPLACE TRIGGER update_mileage 
+ BEFORE INSERT  ON sums 
+ FOR EACH ROW
+ BEGIN
+      :new.result_value := findsum(:new.base_value);      
+ END;
 
